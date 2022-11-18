@@ -1,0 +1,26 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: springboot-native
+  labels:
+    apps.tanzu.vmware.com/workload-type: native
+    app.kubernetes.io/part-of: springboot-native
+spec:
+  source:
+    git:
+      url: https://github.com/nitashav-vmw/springboot-native-example
+      ref:
+        branch: main
+  build:
+    env:
+    - name: BP_NATIVE_IMAGE
+      value: "True"
+    - name: BP_JVM_VERSION
+      value: "17"
+    - name: BP_MAVEN_BUILD_ARGUMENTS
+      value: -Pnative package
+#   resources:
+#      requests:
+#        memory: "2G"
+#      limits:
+#        memory: "8G"
