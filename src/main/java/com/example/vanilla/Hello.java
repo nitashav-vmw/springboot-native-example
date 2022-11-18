@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Hello {
     @GetMapping("/")
     public String greet() {
-        return "Hello GraalVM!\n";
+        return "Hello GraalVM from springboot 3!\n";
     }
 }
