@@ -1,0 +1,33 @@
+apiVersion: kpack.io/v1alpha2
+kind: Image
+metadata:
+  name: vanilla1
+  namespace: tap-dev
+spec:
+  build:
+    env:
+    - name: BP_NATIVE_IMAGE
+      value: "True"
+    - name: BP_JVM_VERSION
+      value: "17"
+    - name: BP_MAVEN_BUILD_ARGUMENTS
+      value: -Pnative package
+    resources:
+      requests:
+        memory: "2G"
+      limits:
+        memory: "8G"
+  builder:
+    kind: ClusterBuilder
+    name: tiny
+  cache:
+    volume:
+      size: 2G
+  failedBuildHistoryLimit: 10
+  imageTaggingStrategy: BuildNumber
+  serviceAccountName: default
+  source:
+    registry:
+      image: nitashav.azurecr.io/vanilla-procfile-source@sha256:b952a78a3fcd0db45712932f40fd294479432e86e44eaa2fc1cbe6d756f3d876 
+  successBuildHistoryLimit: 10
+  tag: nitashav.azurecr.io/vanilla1
